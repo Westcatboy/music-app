@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+
+::-webkit-scrollbar {
+    width: 5px;
+    background: black;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background: #612ee8;
+}
+
+.hidden-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.fade {
+    animation: fade forwards linear .3s;
+}
+
+.fade-out {
+    animation: fade-out forwards linear .3s;
+}
+
+@keyframes fade {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fade-out {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+}
+
+.ball {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.alert-success {
+    background: rgba(0, 72, 0, 0.47);
+    border-radius: 99999999px;
+    padding: 10px 15px;
+    width: 300px;
+    color: #ffffff;
+    border: 3px solid #078f3d;
+}
+
+.alert-danger {
+    background: rgba(139, 0, 0, 0.62);
+    border-radius: 99999999px;
+    padding: 10px 15px;
+    color: #ffffff;
+    width: 300px;
+    border: 3px solid #8f0707;
+}
+
+.alert-warning {
+    background: rgba(255, 217, 69, 0.53);
+    border-radius: 99999999px;
+    padding: 10px 15px;
+    width: 300px;
+    color: #ffffff;
+    border: 3px solid #ff9900;
+}
+
+.show-toast {
+    animation: forwards cubic-bezier(.5, 1, .86, 1.2) 1s show-toast;
+}
+
+.hide-toast {
+    animation: forwards cubic-bezier(1, .8, .86, 1.2) 1s hide-toast;
+}
+
+@keyframes show-toast {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(100px);
+    }
+}
+
+@keyframes hide-toast {
+    0% {
+        transform: translateY(100px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+}
