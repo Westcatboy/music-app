@@ -13,8 +13,8 @@ const Login = ({toggleSign}) => {
         e.preventDefault();
         api.post("/user/sign-in", form).then(res => {
             eventEmitter.emits("message", {type: "success", content: res.data.message, duration: 3000});
-            console.log(res.data.user)
             updateUser(res.data.user)
+            toggleSign("");
         }).catch(res => {
             eventEmitter.emits("message", {type: "danger", content: res.response.data.message, duration: 3000});
         });
@@ -26,10 +26,13 @@ const Login = ({toggleSign}) => {
     }
 
     return (
-        <div className={"w-full fixed left-[0px] top-[0px] flex items-center justify-center h-full"}
-             style={{background: "rgba(0,0,0,0.27)"}}>
+        <>
+            <div onClick={() => toggleSign("")}
+                 className={"w-full fixed left-[0px] top-[0px] flex items-center justify-center h-full"}
+                 style={{background: "rgba(0,0,0,0.27)"}}>
+            </div>
             <div
-                className="w-[30%] h-[40%] relative rounded-2xl backdrop-blur-2xl bg-black/30 py-4 px-5 fade  overflow-hidden">
+                className="w-[30%] fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] h-[40%]  rounded-2xl backdrop-blur-2xl bg-black/30 py-4 px-5 fade  overflow-hidden">
                 <div className="ball absolute right-[-100px] top-[-60px] bg-indigo-700"></div>
                 <div className="ball absolute left-[-100px]  backdrop-blur-[4px] bottom-[-60px] bg-indigo-700"></div>
                 <div className="ball bg-indigo-800 absolute left-[30px] backdrop-blur-[4px] bottom-[-60px]"
@@ -63,7 +66,9 @@ const Login = ({toggleSign}) => {
                 </div>
 
             </div>
-        </div>
+        </>
+
+
     )
 }
 

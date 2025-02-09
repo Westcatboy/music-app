@@ -38,7 +38,9 @@ const Navbar = () => {
                                 user.avatar ?
                                     <img className={"w-12 h-12 rounded-full"} src={user.avatar} alt=""/> :
                                     <p className={"bg-purple-500 text-white w-12 h-12 rounded-full flex items-center justify-center"}>{user.name.slice(0, 1)}</p>
-                            }</> :
+                            }
+                            <a href="#" onClick={() => logout()}>Logout</a>
+                        </> :
                         <div className={"flex gap-3 text-[14px]"}>
                             <button
                                 className={"rounded hover:bg-blue-600 duration-300 bg-blue-500 py-2 px-3 cursor-pointer"}

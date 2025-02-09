@@ -4,6 +4,7 @@ import {PlayerContext} from "../context/PlayerContext.jsx";
 import Queue from "./Queue.jsx";
 import {UserContext} from "../context/UserContext.jsx";
 import api from "../router/index.js";
+import {eventEmitter} from "../App.jsx";
 
 const Player = () => {
     const {
@@ -29,18 +30,28 @@ const Player = () => {
     const [showQueue, setShow] = useState(false);
     const [isLove, setIsLove] = useState(false);
     useEffect(() => {
-        if (!user) return;
+        if (!user) {
+            setIsLove(false);
+            return;
+        }
         setIsLove(list[0].songs.find(v => v.id === queue.id));
-    }, [queue, list]);
+    }, [queue, list, user]);
 
     const toggleLove = () => {
+        if (!user) {
+            return eventEmitter.emits("message", {
+                content: "You have not sign in yet.Please sign in.",
+                type: "warning",
+                duration: 3000
+            })
+        }
         let has = list[0].songs.find(v => v.id === queue.id);
         let current = list[0];
         if (has) {
             //     remove
             api.delete(`/user/removeLove/${current.id}/${queue.id}`).then(res => {
                 setIsLove(false);
-                setList([...list.filter(v => v.id !== current.id),res.data.list]);
+                setList([...list.filter(v => v.id !== current.id), res.data.list]);
             }).catch(res => {
 
             })
@@ -48,9 +59,9 @@ const Player = () => {
             //     add
             api.post(`/user/addLove/${current.id}/${queue.id}`).then(res => {
                 setIsLove(true);
-                console.log([...list.filter(v => v.id !== current.id),res.data.list])
+                console.log([...list.filter(v => v.id !== current.id), res.data.list])
 
-                setList([...list.filter(v => v.id !== current.id),res.data.list]);
+                setList([...list.filter(v => v.id !== current.id), res.data.list]);
             }).catch(res => {
 
             })

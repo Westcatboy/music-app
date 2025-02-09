@@ -55,7 +55,6 @@
     background: rgba(0, 72, 0, 0.47);
     border-radius: 99999999px;
     padding: 10px 15px;
-    width: 300px;
     color: #ffffff;
     border: 3px solid #078f3d;
 }
@@ -65,7 +64,6 @@
     border-radius: 99999999px;
     padding: 10px 15px;
     color: #ffffff;
-    width: 300px;
     border: 3px solid #8f0707;
 }
 
@@ -73,7 +71,6 @@
     background: rgba(255, 217, 69, 0.53);
     border-radius: 99999999px;
     padding: 10px 15px;
-    width: 300px;
     color: #ffffff;
     border: 3px solid #ff9900;
 }

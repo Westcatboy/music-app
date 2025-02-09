@@ -25,6 +25,7 @@ const Register = ({toggleSign}) => {
         formData.append("email", form.email);
         formData.append("password", form.password);
         api.post('/user/sign-up', formData).then(res => {
+            toggleSign("login");
             eventEmitter.emits("message", {content: res.data.message, type: "success", duration: 3000});
         }).catch(res => {
             eventEmitter.emits("message", {content: res.response.data.message, type: "danger", duration: 3000});
@@ -32,10 +33,13 @@ const Register = ({toggleSign}) => {
     }
 
     return (
-        <div className={"w-full fixed left-[0px] top-[0px] flex items-center justify-center h-full"}
-             style={{background: "rgba(0,0,0,0.27)"}}>
+        <>
+            <div  onClick={()=>toggleSign("")} className={"w-full fixed left-[0px] top-[0px] flex items-center justify-center h-full"}
+                 style={{background: "rgba(0,0,0,0.27)"}}>
+
+            </div>
             <div
-                className="w-[50%] h-[55%] rounded-2xl backdrop-blur-2xl bg-black/30 py-4 relative px-5 fade overflow-hidden">
+                className="w-[50%] h-[55%] left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] rounded-2xl backdrop-blur-2xl bg-black/30 py-4 fixed px-5 fade overflow-hidden">
                 <div className="ball absolute right-[-50px] top-[-60px] bg-indigo-700"></div>
                 <div className="ball absolute left-[-50px] bottom-[-60px] bg-indigo-700"></div>
                 <div className="ball bg-indigo-800 absolute left-[100px] backdrop-blur-[4px] bottom-[-60px]"
@@ -68,7 +72,8 @@ const Register = ({toggleSign}) => {
                             <label htmlFor={"photo"}
                                    className={"w-[250px] h-[250px] border cursor-pointer flex items-center justify-center"}>
                                 {form.image ?
-                                    <img className={"w-full object-cover h-full"} src={URL.createObjectURL(form.image)}
+                                    <img className={"w-full object-cover h-full"}
+                                         src={URL.createObjectURL(form.image)}
                                          alt=""/> :
                                     <span>Choose Photo</span>}
 
@@ -76,14 +81,16 @@ const Register = ({toggleSign}) => {
                             </label>
                         </div>
                     </div>
-                    <button className={"border mt-5 px-4 py-2 cursor-pointer hover:bg-white hover:text-[#000]"}>Sign Up
+                    <button className={"border mt-5 px-4 py-2 cursor-pointer hover:bg-white hover:text-[#000]"}>Sign
+                        Up
                     </button>
                 </form>
                 <div onClick={() => toggleSign("login")}
-                     className={"absolute cursor-pointer right-[20px] bottom-[20px] text-blue-400 underline"}>To sign in
+                     className={"absolute cursor-pointer right-[20px] bottom-[20px] text-blue-400 underline"}>To
+                    sign in
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 export default Register;

@@ -28,12 +28,19 @@ const signUp = async (req, res) => {
         let imageUrl = await cloudinary.uploader.upload(image.path, {resource_type: "image"});
         let salt = await bcrypt.genSalt(10);
         let hashPassword = await bcrypt.hash(password, salt);
-        await prisma.user.create({
+        let newUser = await prisma.user.create({
             data: {
                 name: username,
                 email,
                 avatar: imageUrl.secure_url,
                 password: hashPassword,
+            }
+        });
+        await prisma.list.create({
+            data: {
+                title: "My favorite",
+                desc: "my favorite songs",
+                user_id: newUser.id
             }
         })
         return res.status(200).json({success: true, message: "register success !"})

@@ -16,17 +16,25 @@ const UserContextProvider = ({children}) => {
         const loadUser = JSON.parse(localStorage.getItem("user") || "null");
         if (loadUser) {
             setUser(loadUser);
+        }
+    }, []);
+
+    useEffect(() => {
+        const loadUser = JSON.parse(localStorage.getItem("user") || "null");
+        if (loadUser) {
             api.get(`/user/list/${loadUser.id}`).then(res => {
+                console.log(234)
                 setList(res.data.list)
             })
         }
-
-    }, []);
+    }, [user]);
     const logout = () => {
         localStorage.removeItem("user");
         setUser(null);
+        setList([])
+
     }
-    const provider = {user, logout, updateUser,list,setList};
+    const provider = {user, logout, updateUser, list, setList};
     return <UserContext.Provider value={provider}>
         {children}
     </UserContext.Provider>
